@@ -7,14 +7,16 @@ import Feather from '@expo/vector-icons/Feather';
 function HomeScreen() {
   return (
     <SafeAreaView>
-        <View>
+        <View style={styles.headerContainer}> 
         <View style={styles.headerTitleContainer}>
             <Text style={styles.headerTitle}> For Nabil</Text>
             <Feather name="search" size={22} color="white" />
         </View>
-        <Text>TV Shows</Text>
-        <Text>Movies</Text>
-        <Text>Categories</Text>
+        <View style={{flexDirection:'row', gap:5}}>
+        <Text style={styles.filterText}>TV Shows</Text>
+        <Text style={styles.filterText}>Movies</Text>
+        <Text style={styles.filterText}>Categories</Text>
+        </View>
         </View>
       <FlatList
         data={mediaList}
@@ -51,10 +53,24 @@ const styles = StyleSheet.create({
     color:'white',
     fontSize:20,
     fontWeight:'bold'
-  },
+  }, 
   headerTitleContainer:{
 flexDirection:'row',
 justifyContent:'space-between'
+  },
+  filterText:{
+    color:'lightgrey',
+    fontSize:12,
+    borderWidth:1, 
+    borderColor:'lightgrey',
+    borderRadius:15,
+    fontWeight:'bold',
+    paddingVertical:5,
+    paddingHorizontal:10
+  },
+  headerContainer:{
+    marginHorizontal:10,
+    gap:10
   }
 });
 
