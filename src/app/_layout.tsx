@@ -11,7 +11,7 @@ const myTheme ={
 }
     return (
         <ThemeProvider value={myTheme}>
-        <Stack />
+        <Stack screenOptions={{headerShown: false}} />
         </ThemeProvider>
 )
 }

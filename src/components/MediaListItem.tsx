@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import { MediaListData } from "@/types/type";
 
 type MediaListItemProps ={
@@ -7,9 +7,7 @@ type MediaListItemProps ={
 function MediaListItem({ MediaItem }: MediaListItemProps) {
   return (
     <View>
-      <Text style={{ color: 'white' }}>
-        {MediaItem.id}
-      </Text>
+      <Image source={{uri:MediaItem.image}} style={{width: 110, aspectRatio: 3/4, marginHorizontal:5, borderRadius: 5}} />
     </View>
   );
 }
