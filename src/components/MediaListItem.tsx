@@ -1,14 +1,14 @@
 import { View, Text } from "react-native";
-import { MediaList } from "@/types/type";
+import { MediaListData } from "@/types/type";
 
 type MediaListItemProps ={
-  MediaItem:MediaList
+  MediaItem:MediaListData
 }
 function MediaListItem({ MediaItem }: MediaListItemProps) {
   return (
     <View>
       <Text style={{ color: 'white' }}>
-        {MediaItem.title}
+        {MediaItem.id}
       </Text>
     </View>
   );
