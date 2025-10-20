@@ -2,6 +2,7 @@ import { useLocalSearchParams } from "expo-router"
 import { View, Text } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import mediaDetailedList from '@assets/data/mediaDetailedList.json'
+import MediaInfo from "@/components/mediaDetails/MediaInfo"
 
 function mediaDetail(){
     const {id} = useLocalSearchParams();
@@ -14,9 +15,17 @@ function mediaDetail(){
             </Text>
         )
     }
+    const {title,description, releaseYear, ageRestriction, duration, type} = mediaItem
     return(
         <SafeAreaView>
-            <Text style={{color:'white'}}>{mediaItem.title}</Text>
+            <MediaInfo 
+            title={title}
+            releaseYear={releaseYear}
+            ageRestriction={ageRestriction}
+            duration={duration}
+            type={type}
+            desc={description}
+            />
         </SafeAreaView>
     )
 }
