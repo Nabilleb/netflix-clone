@@ -9,12 +9,13 @@ type MediaInfoProps = {
   duration?: number;
   type: string;
   desc: string;
+  nrOfSeasons?:number
 };
 
 const { width } = Dimensions.get('window');
 
 function MediaInfo(props: MediaInfoProps) {
-  const { title, releaseYear, ageRestriction, duration, desc, type } = props;
+  const { title, releaseYear, ageRestriction, duration, desc, type, nrOfSeasons } = props;
   
   return (
     <View style={styles.container}>
@@ -32,7 +33,7 @@ function MediaInfo(props: MediaInfoProps) {
             <>
               <View style={styles.dotSeparator} />
               <Text style={styles.metaInfoText}>
-                {Math.floor(duration / 60)}h {duration % 60}m
+                {type ==="MOVIE"? `${Math.floor(duration/60)}h ${duration%60}m`: `${nrOfSeasons} seasons`}
               </Text>
             </>
           )}
@@ -42,7 +43,7 @@ function MediaInfo(props: MediaInfoProps) {
       </View>
 
       
-      <Pressable style={styles.playButton}>
+      <Pressable style={styles.playButton} onPress={() => console.log('pressed')}>
         <View style={styles.playButtonContent}>
           <FontAwesome5 name="play" size={16} color="black" />
           <Text style={styles.playButtonText}>Play</Text>

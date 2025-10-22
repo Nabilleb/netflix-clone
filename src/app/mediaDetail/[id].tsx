@@ -15,7 +15,7 @@ function mediaDetail(){
             </Text>
         )
     }
-    const {title,description, releaseYear, ageRestriction, duration, type} = mediaItem
+    const {title,description, releaseYear, ageRestriction, duration, type, seasons} = mediaItem
     return(
         <SafeAreaView>
             <MediaInfo 
@@ -25,6 +25,7 @@ function mediaDetail(){
             duration={duration}
             type={type}
             desc={description}
+            nrOfSeasons={seasons?.length}
             />
         </SafeAreaView>
     )
