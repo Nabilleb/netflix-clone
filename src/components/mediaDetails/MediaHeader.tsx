@@ -1,16 +1,19 @@
 import { AntDesign } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { VideoPlayer, VideoView } from "expo-video";
-import { View, Text, ImageBackground,StyleSheet } from "react-native";
+import { useState } from "react";
+import { View, Text, ImageBackground,StyleSheet, ActivityIndicator } from "react-native";
 
 type MediaHeaderProps={
   thumbnail: string;
   trailerPlayer: VideoPlayer;
-  mediaPlayer: VideoPlayer
+  mediaPlayer: VideoPlayer;
+  videoViewRef:React.RefObject<VideoView | null>
 }
 function MediaHeader(props : MediaHeaderProps) {
-  const {thumbnail,trailerPlayer,mediaPlayer} = props
-  return (
+  const [isTrailerLoading, setIsTrailerLoading] = useState(true);
+  const {thumbnail,trailerPlayer,mediaPlayer, videoViewRef} = props
+  return ( 
     <View style={styles.container}>
    <AntDesign
   name="close"
@@ -19,10 +22,23 @@ function MediaHeader(props : MediaHeaderProps) {
   style={styles.closeIcon}
   onPress={() => router.back()}
 />
-      <ImageBackground source={{uri:thumbnail}} style={[StyleSheet.absoluteFill, styles.ImageBackground]} />
+{isTrailerLoading && (
+     <ImageBackground source={{uri:thumbnail}} style={[StyleSheet.absoluteFill, styles.ImageBackground]}>
+       <ActivityIndicator size="large" color="white" />
+      </ImageBackground>
+)}
       <VideoView 
       player={trailerPlayer}
       style={[StyleSheet.absoluteFill]}
+      onFirstFrameRender={() => setIsTrailerLoading(false)}
+      />
+      <VideoView 
+      ref={videoViewRef}
+      player={mediaPlayer}
+      onFullscreenExit={() =>{
+        mediaPlayer.pause()
+        trailerPlayer.play()
+      }}
       />
     </View>
   );

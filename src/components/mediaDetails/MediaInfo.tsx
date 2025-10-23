@@ -9,13 +9,14 @@ type MediaInfoProps = {
   duration?: number;
   type: string;
   desc: string;
-  nrOfSeasons?:number
+  nrOfSeasons?:number;
+  onPlayMediaPressed: () => void;
 };
 
 const { width } = Dimensions.get('window');
 
 function MediaInfo(props: MediaInfoProps) {
-  const { title, releaseYear, ageRestriction, duration, desc, type, nrOfSeasons } = props;
+  const { title, releaseYear, ageRestriction, duration, desc, type, nrOfSeasons, onPlayMediaPressed } = props;
   
   return (
     <View style={styles.container}>
@@ -43,7 +44,7 @@ function MediaInfo(props: MediaInfoProps) {
       </View>
 
       
-      <Pressable style={styles.playButton} onPress={() => console.log('pressed')}>
+      <Pressable style={styles.playButton} onPress={() => onPlayMediaPressed()}>
         <View style={styles.playButtonContent}>
           <FontAwesome5 name="play" size={16} color="black" />
           <Text style={styles.playButtonText}>Play</Text>

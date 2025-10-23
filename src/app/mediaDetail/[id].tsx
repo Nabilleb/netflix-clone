@@ -3,11 +3,13 @@ import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import mediaDetailedList from '@assets/data/mediaDetailedList.json';
 import MediaInfo from "@/components/mediaDetails/MediaInfo";
-import { useVideoPlayer } from "expo-video";
+import { useVideoPlayer, VideoView } from "expo-video";
 import MediaHeader from "@/components/mediaDetails/MediaHeader";
+import { useRef } from "react";
 
 function MediaDetail() {
   const { id } = useLocalSearchParams();
+  const videoViewRef = useRef<VideoView | null>(null)
   const mediaItem = mediaDetailedList.find(media => media.id === id);
 
   if (!mediaItem) {
@@ -30,6 +32,12 @@ function MediaDetail() {
      player.showNowPlayingNotification = true;
  });
 
+ const onPlayMediaPressed = () =>{
+  trailerPlayer.pause()
+  videoViewRef.current?.enterFullscreen()
+  mediaPlayer.play()
+ }
+
 
   return (
     <SafeAreaView>
@@ -37,6 +45,7 @@ function MediaDetail() {
       thumbnail={thumbnail}
       trailerPlayer={trailerPlayer}
       mediaPlayer={mediaPlayer}
+      videoViewRef = {videoViewRef}
       />
       <MediaInfo
         title={title}
@@ -46,6 +55,7 @@ function MediaDetail() {
         type={type}
         desc={description}
         nrOfSeasons={seasons?.length}
+        onPlayMediaPressed={onPlayMediaPressed}
       />
 
 
