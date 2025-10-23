@@ -14,25 +14,30 @@ function MediaDetail() {
     return <Text style={{ color: 'white' }}>Media Item not found!</Text>;
   }
 
-  const { title, description, releaseYear, ageRestriction, duration, type, seasons, trailer, videoUrl } = mediaItem;
+  const { title, description, releaseYear, ageRestriction, duration, type, seasons, trailer, videoUrl, thumbnail } = mediaItem;
   const videoSource = type === 'MOVIE' ? videoUrl : seasons?.[0].episodes?.[0].videoUrl;
 
   if (!videoSource) {
     return <Text style={{ color: 'white' }}>Media Item not found!</Text>;
   }
 
-  const trailerPlayer = useVideoPlayer(trailer, player => {
-    player.currentTime = 10;
-    player.play();
-  });
+ const trailerPlayer = useVideoPlayer(trailer, player => {
+     player.currentTime = 10;
+     player.play();
+ });
 
-  const mediaPlayer = useVideoPlayer(videoSource, player => {
-    player.showNowPlayingNotification = true;
-  });
+ const mediaPlayer = useVideoPlayer(videoSource, player => {
+     player.showNowPlayingNotification = true;
+ });
+
 
   return (
     <SafeAreaView>
-      <MediaHeader />
+      <MediaHeader 
+      thumbnail={thumbnail}
+      trailerPlayer={trailerPlayer}
+      mediaPlayer={mediaPlayer}
+      />
       <MediaInfo
         title={title}
         releaseYear={releaseYear}
