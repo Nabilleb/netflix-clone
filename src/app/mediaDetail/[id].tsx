@@ -59,8 +59,14 @@ const mediaItem = mediaDetailedList.find(media => media.id === id);
         nrOfSeasons={seasons?.length}
         onPlayMediaPressed={onPlayMediaPressed}
       />
+{type === 'TV_SERIES' && !!seasons && (
+  <SeasonSelector 
+    seasons={seasons} 
+    selectedSeason={selectedSeason}
+  />
+)}
 
-    <SeasonSelector />
+   
     </SafeAreaView>
   );
 }

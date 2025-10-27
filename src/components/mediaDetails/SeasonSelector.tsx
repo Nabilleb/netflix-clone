@@ -2,8 +2,15 @@ import { Entypo } from "@expo/vector-icons"
 import { useState } from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native"
 import { Menu } from "react-native-paper"
+import { Season } from "@/types/type";
 
-function SeasonSelector(){
+type SeasonSelectorProps ={
+seasons: Season[],
+selectedSeason: string,
+}
+
+function SeasonSelector(props){
+    const {selectedSeason, seasons} = props
     const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
 
 return(
@@ -14,18 +21,20 @@ return(
   visible={isMenuVisible}
   onDismiss={() => setIsMenuVisible(false)}
   contentStyle={styles.menuContent}
+  anchorPosition="bottom"
   anchor={
-    <Pressable style={styles.anchorContainer} onPress={() => setIsMenuVisible(true)}>
+    <Pressable
+      style={styles.anchorContainer}
+      onPress={() => setIsMenuVisible(true)}
+    >
       <Text style={styles.SelectSeasonText}>Season 1</Text>
-      <Entypo name="chevron-thin-down" size={15} color="#b7b7b7" />
+      <Entypo name="chevron-thin-down" size={15} color="white" />
     </Pressable>
   }
 >
-  {/* Menu items go here */}
-  <Menu.Item onPress={() => {}} title="Season 1" />
-  <Menu.Item onPress={() => {}} title="Season 2" />
-  <Menu.Item onPress={() => {}} title="Season 3" />
+  <Menu.Item title="test" titleStyle={{ color: "white" }} />
 </Menu>
+
 
 )
 }
@@ -51,7 +60,7 @@ alignSelf: 'flex-start'
 },
 
 SelectSeasonText:{
-    color: '#b7b7b7',
+    color: 'white',
     fontWeight:500,
 
 }
