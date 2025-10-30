@@ -4,13 +4,14 @@ import { Episode } from "@types/types";
 
 type EpisodeListItemProps = {
   episode: Episode;
+  onPlayMediaPressed: (video?: string) => Promise<void>
 };
 
-export default function EpisodeListItem({ episode }: EpisodeListItemProps) {
+export default function EpisodeListItem({ episode, onPlayMediaPressed }: EpisodeListItemProps) {
   const { episodeThumbnail, episodeDescription, episodeTitle, episodeNumber, duration, videoUrl } = episode;
 
   return (
-    <Pressable style={styles.container} onPress={() => console.log("Pressed!")}>
+    <Pressable style={styles.container} onPress={() => onPlayMediaPressed(videoUrl)}>
       <View style={styles.episodeContainer}>
         <ImageBackground source={{ uri: episodeThumbnail }} style={styles.imageBackground}>
           <FontAwesome name="play" size={12} color="white" style={{ marginLeft: 2 }} />

@@ -56,8 +56,11 @@ setSeasonsEpisodes(season?.episodes ||[])
     player.showNowPlayingNotification = true;
   });
 
-  const onPlayMediaPressed = () => {
+  const onPlayMediaPressed = async (video?:string) => {
     trailerPlayer.pause();
+    if (video){
+      await mediaPlayer.replaceAsync(video)
+    }
     videoViewRef.current?.enterFullscreen();
     mediaPlayer.play();
   };
@@ -73,7 +76,7 @@ setSeasonsEpisodes(season?.episodes ||[])
 
       <FlatList
         data={seasonEpisodes} 
-        renderItem={({ item }) => <EpisodeListItem episode={item} />}
+        renderItem={({ item }) => <EpisodeListItem episode={item}  onPlayMediaPressed={onPlayMediaPressed}/>}
         ListHeaderComponent={
           <>
             <MediaInfo
