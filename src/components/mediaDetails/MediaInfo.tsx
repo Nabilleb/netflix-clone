@@ -10,7 +10,7 @@ type MediaInfoProps = {
   type: string;
   desc: string;
   nrOfSeasons?:number;
-  onPlayMediaPressed: () => void;
+  onPlayMediaPressed: (video?: string, episodeId?:string) => Promise<void>;
 };
 
 const { width } = Dimensions.get('window');

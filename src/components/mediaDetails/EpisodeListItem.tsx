@@ -1,20 +1,26 @@
 import { ImageBackground, View, StyleSheet, Text, Pressable } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Episode } from "@types/types";
+import { ActivityIndicator } from "react-native-paper";
 
 type EpisodeListItemProps = {
   episode: Episode;
-  onPlayMediaPressed: (video?: string) => Promise<void>
+  onPlayMediaPressed: (video?: string, episodeId?:string) => Promise<void>;
+  isEpisodeLoading:boolean
 };
 
-export default function EpisodeListItem({ episode, onPlayMediaPressed }: EpisodeListItemProps) {
-  const { episodeThumbnail, episodeDescription, episodeTitle, episodeNumber, duration, videoUrl } = episode;
+export default function EpisodeListItem({ episode, onPlayMediaPressed, isEpisodeLoading }: EpisodeListItemProps) {
+  const { id,episodeThumbnail, episodeDescription, episodeTitle, episodeNumber, duration, videoUrl } = episode;
 
   return (
-    <Pressable style={styles.container} onPress={() => onPlayMediaPressed(videoUrl)}>
+    <Pressable style={styles.container} onPress={() => onPlayMediaPressed(videoUrl, id)}>
       <View style={styles.episodeContainer}>
         <ImageBackground source={{ uri: episodeThumbnail }} style={styles.imageBackground}>
+          {isEpisodeLoading?(
+            <ActivityIndicator size='small' color="white" />
+          ):(
           <FontAwesome name="play" size={12} color="white" style={{ marginLeft: 2 }} />
+          )}
         </ImageBackground>
         <View style={{gap:2}}>
          <View style={{flexDirection:'row'}}>

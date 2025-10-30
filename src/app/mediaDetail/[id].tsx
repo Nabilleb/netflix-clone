@@ -15,6 +15,7 @@ function MediaDetail() {
   const videoViewRef = useRef<VideoView | null>(null);
   const [selectedSeason, setSelectedSeason] = useState<string>("Season 1");
   const [seasonEpisodes, setSeasonsEpisodes] = useState<Episode[]>([])
+  const [episodeLoadingId, setEpisodesLoadingId] = useState<string | null>(null)
 
   const mediaItem = mediaDetailedList.find((media) => media.id === id);
   useEffect(() =>{
@@ -56,10 +57,12 @@ setSeasonsEpisodes(season?.episodes ||[])
     player.showNowPlayingNotification = true;
   });
 
-  const onPlayMediaPressed = async (video?:string) => {
+  const onPlayMediaPressed = async (video?:string, episodeId?:string) => {
     trailerPlayer.pause();
-    if (video){
+    if (video && episodeId){
+      setEpisodesLoadingId(episodeId)
       await mediaPlayer.replaceAsync(video)
+      setEpisodesLoadingId(null)
     }
     videoViewRef.current?.enterFullscreen();
     mediaPlayer.play();
@@ -76,7 +79,7 @@ setSeasonsEpisodes(season?.episodes ||[])
 
       <FlatList
         data={seasonEpisodes} 
-        renderItem={({ item }) => <EpisodeListItem episode={item}  onPlayMediaPressed={onPlayMediaPressed}/>}
+        renderItem={({ item }) => <EpisodeListItem episode={item}  onPlayMediaPressed={onPlayMediaPressed} isEpisodeLoading={episodeLoadingId === item.id}/>}
         ListHeaderComponent={
           <>
             <MediaInfo
