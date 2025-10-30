@@ -8,6 +8,7 @@ import MediaHeader from "@/components/mediaDetails/MediaHeader";
 import { useEffect, useRef, useState } from "react";
 import SeasonSelector from "@/components/mediaDetails/SeasonSelector";
 import { Episode } from "@/types/type";
+import EpisodeListItem from "@/components/mediaDetails/EpisodeListItem";
 
 function MediaDetail() {
   const { id } = useLocalSearchParams();
@@ -72,7 +73,7 @@ setSeasonsEpisodes(season?.episodes ||[])
 
       <FlatList
         data={seasonEpisodes} 
-        renderItem={({ item }) => <Text style={{color:'white'}}>fjf</Text>}
+        renderItem={({ item }) => <EpisodeListItem episode={item} />}
         ListHeaderComponent={
           <>
             <MediaInfo
